@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>買取価格表｜TCG GATE JAPAN</title>
+<meta name="description" content="ポケモンカードの買取価格表。売却リストに追加して見込み額を確認し、宅配買取・LINE査定に進めます。">
+<meta property="og:title" content="買取価格表｜TCG GATE JAPAN">
+<meta property="og:description" content="ポケモンカードの買取価格表。売却リストに追加して見込み額を確認し、宅配買取・LINE査定に進めます。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1B2140">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='5' width='15' height='21' rx='3' fill='%23fff' stroke='%230E0E10' stroke-width='2' transform='rotate(-10 11 15)'/%3E%3Crect x='13' y='6' width='15' height='21' rx='3' fill='%230E0E10' transform='rotate(9 20 16)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="sell" data-theme="normal">
+
+<main id="main">
+<div class="wrap">
+<nav class="crumb" aria-label="パンくず"><a href="index.html" data-en="Home">トップ</a><span>／</span><a href="sell.html" data-en="Sell">売りたい</a><span>／</span><span data-en="Buylist">買取価格表</span></nav>
+<header class="page-hd" style="border-bottom:0">
+<p class="eyebrow">Buylist</p>
+<h1 class="display d-l"><span class="rise"><span data-en="Buy<span class='outline'>list</span>">買取<span class="outline">価格表</span></span></span></h1>
+<p class="muted" style="margin:16px 0 0" data-en="Per card, grade A. Prices change without notice depending on stock. Updated: [date]">状態A・1枚あたりの価格です。在庫状況により予告なく変動します。更新：[日付]</p>
+</header>
+<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;margin-bottom:28px">
+<div class="field" style="flex:1 1 300px"><label for="q" data-en="Card name or number">カード名・型番</label><input class="input" id="q" type="search" placeholder="例：リザードン　4/102"></div>
+<div class="chips" id="chips" role="group" aria-label="区分"></div>
+</div>
+<div id="list"></div>
+<p id="none" class="muted" hidden style="padding:28px 0" data-en="No match. Send a photo on LINE for an individual quote.">該当するカードが見つかりません。価格表にないカードは、LINEで写真を送ると個別に査定します。</p>
+<div class="sellbar" id="bar">
+<span><span id="cnt">0</span><span data-en=" cards in your sell list"> 枚を売却リストに追加　見込み</span><span class="t" id="tot">¥0</span></span>
+<span style="display:flex;flex-wrap:wrap;gap:8px"><a class="btn light sm" href="contact.html?type=kit" id="apply" data-en="Request a mail-in kit">宅配キットを申し込む</a><a class="btn line sm" href="contact.html?type=line" data-en="Send on LINE">LINEで送る</a></span>
+</div>
+<p class="muted" style="font-size:12px;margin:20px 0 100px" data-en="The estimate assumes grade A; the final offer is made after inspection.">見込み額は状態Aを前提にした目安です。実際の買取額は到着後の査定で確定します。</p>
+</div>
+</main>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+
+(function(){
+  var st={q:"",chip:"all"};
+  function render(){var U=window.TCGUI,D=window.TCG,en=U.lang()==="en";
+    var sell=U.store.get("tcg-sell",[]);
+    var chips=[["all",en?"All":"すべて"],["single",en?"Singles":"シングル"],["psa10","PSA10"],["old",en?"Vintage":"旧裏"]];
+    U.$("#chips").innerHTML=chips.map(function(c){return '<button type="button" class="chip'+(st.chip===c[0]?" on":"")+'" data-chip="'+c[0]+'">'+c[1]+'</button>';}).join("");
+    var ALL=U.buyRows();var rows=ALL.filter(function(b){return (st.chip==="all"||b.cat===st.chip)&&(!st.q||(b.name+b.num).toLowerCase().indexOf(st.q.toLowerCase())>=0);});
+    U.$("#list").innerHTML=rows.map(function(b){var on=sell.indexOf(b.id)>=0;return '<div class="ticket'+(on?" on":"")+'"><div class="l"><span class="art" style="--h:'+b.hue+';width:46px;border-radius:5px"></span><span><b style="font-size:18px">'+U.esc(b.name)+'</b><br><span class="num muted" style="font-size:12px">'+b.num+'　PRICE UP</span></span></div><div class="r"><span class="pr">'+U.yen(b.price)+'</span><button type="button" class="btn sm '+(on?"":"ghost")+'" data-sell="'+b.id+'">'+(on?(en?"Remove":"リストから外す"):(en?"Add to sell list":"売却リストに追加"))+'</button></div>'+(on?'<span class="stamp" aria-hidden="true">'+(en?"SELL":"売る")+'</span>':"")+'</div>';}).join("");
+    U.$("#none").hidden=rows.length>0;
+    var tot=ALL.filter(function(b){return sell.indexOf(b.id)>=0;}).reduce(function(n,b){return n+b.price;},0);
+    U.$("#cnt").textContent=sell.length; U.$("#tot").textContent=U.yen(tot);
+    U.$("#apply").href="contact.html?type=kit&sell="+sell.join(",");
+  }
+  document.addEventListener("tcg:ready",function(){var U=window.TCGUI;
+    U.$("#q").addEventListener("input",function(e){st.q=e.target.value;render();});
+    document.addEventListener("click",function(e){var c=e.target.closest("[data-chip]");if(c){st.chip=c.getAttribute("data-chip");render();}
+      var s=e.target.closest("[data-sell]");if(s){var id=s.getAttribute("data-sell"),l=U.store.get("tcg-sell",[]),i=l.indexOf(id);if(i>=0)l.splice(i,1);else l.push(id);U.store.set("tcg-sell",l);render();}});
+    render();});
+  document.addEventListener("tcg:lang",function(){if(window.TCGUI&&document.readyState!=="loading")render();});
+})();
+
+</script>
+</body>
+</html>

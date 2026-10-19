@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TCG GATE JAPAN｜表で買う、裏で売る。</title>
+<meta name="description" content="秋葉原本店・福岡西新店・久留米店のポケモンカード専門店。シングル・PSA鑑定品の通販と、店頭・宅配・LINE・出張買取。">
+<meta property="og:title" content="TCG GATE JAPAN｜秋葉原・福岡のポケモンカード専門店">
+<meta property="og:description" content="秋葉原本店・福岡西新店・久留米店のポケモンカード専門店。シングル・PSA鑑定品の通販と、店頭・宅配・LINE・出張買取。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1B2140">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='5' width='15' height='21' rx='3' fill='%23fff' stroke='%230E0E10' stroke-width='2' transform='rotate(-10 11 15)'/%3E%3Crect x='13' y='6' width='15' height='21' rx='3' fill='%230E0E10' transform='rotate(9 20 16)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="top" data-theme="normal">
+
+<main id="main">
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<p class="eyebrow" style="margin:0 0 26px">FRONT = BUY / BACK = SELL</p>
+<h1 class="display d-xl"><span class="rise"><span data-en="Buy the front.">表で<span class="sheen">買う</span>。</span></span><span class="rise d2"><span data-en="Sell the back.">裏で<span style="color:var(--accent)">売る</span>。</span></span></h1>
+<p class="lead rise d3" style="margin:28px 0 0"><span data-en="Switch to SELL at the top and every card on the site flips over to show our buy price.">右上のスイッチを「売る」に切り替えると、サイト中のカードが一斉に裏返って買取価格に変わります。買うのも売るのも、同じカードから。</span></p>
+<div class="rise d4" style="margin-top:32px"><span style="display:flex;flex-wrap:wrap;gap:12px"><button type="button" class="btn" id="flipAll" data-mode="sell">カードを裏返して買取価格を見る</button><a class="btn ghost" href="buy.html">シングル一覧へ</a></span></div>
+</div>
+<div style="display:flex;justify-content:center"><div id="heroCard" style="width:min(300px,70vw)"></div></div>
+</div>
+</section>
+
+<section class="sec tight" style="padding-top:0">
+<div class="wrap">
+<div class="sec-hd" data-reveal><div><p class="eyebrow">Now flipping</p><h2 class="display d-m">最新弾は、販売と買取を交互に</h2></div><span class="en" style="font-weight:700;font-size:12px;letter-spacing:.14em;color:var(--accent)">● LIVE</span></div>
+<div id="sets" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px" data-reveal></div>
+</div>
+</section>
+
+<section class="sec" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+<div class="wrap">
+<div class="sec-hd" data-reveal><div><p class="eyebrow" id="wallEyebrow">New arrivals</p><h2 class="display d-m" id="wallTitle">今週の入荷</h2><p class="muted" id="wallSub" style="margin:10px 0 0"></p></div><a class="btn ghost sm" href="buy.html">すべて見る</a></div>
+<div class="grid g4" id="wall"></div>
+</div>
+</section>
+
+<section class="sec">
+<div class="wrap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:48px">
+<div data-reveal>
+<p class="eyebrow">News</p>
+<ul style="list-style:none;margin:16px 0 0;padding:0" id="news"></ul>
+</div>
+<div data-reveal style="background:var(--ink);color:#fff;border-radius:24px;padding:28px">
+<p class="eyebrow" style="color:var(--accent);margin:0 0 10px">Shops</p>
+<div id="shops"></div>
+<a class="btn light sm" href="shops.html" style="margin-top:16px">店舗一覧</a>
+</div>
+</div>
+</section>
+
+<section class="sec" style="padding-top:0">
+<div class="wrap" data-reveal><div class="line-band"><div><p class="eyebrow" style="margin:0 0 14px;color:var(--accent)">Buy-back</p><h2 class="display d-m">裏返したカードは、買取リストへ。</h2><p style="margin:12px 0 0;opacity:.8">見込み額を確認して、宅配キットかLINE査定に進めます。</p></div><a class="btn light" href="price.html">買取リストを見る</a></div></div>
+</section>
+</main>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function(){
+  var tick=0,timer;
+  function render(){var U=window.TCGUI,D=window.TCG,sell=U.mode()==="sell";
+    var h=U.byId.m1;
+    U.$("#heroCard").innerHTML='<span class="flip"><span class="flip-in"><span class="face">'+U.art(h)+'</span><span class="face back"><span class="cb"><small>買取価格</small><b>'+U.yen(h.buy)+'</b><small>'+U.esc(h.name)+'</small></span></span></span></span><p class="muted" style="text-align:center;margin:14px 0 0;font-size:13px">'+U.esc(h.name)+'　販売 '+U.yen(h.price)+' ／ 買取 '+U.yen(h.buy)+'</p>';
+    U.$("#sets").innerHTML=D.sets.slice(0,5).map(function(s,i){return '<a class="tile-flip" style="--i:'+i+';display:block;height:150px" href="buy.html?set='+s.code+'"><span class="flip" style="height:100%"><span class="flip-in" style="height:100%"><span class="face" style="height:100%;box-sizing:border-box;border:1.5px solid var(--ink);border-radius:12px;background:#fff;padding:16px;display:flex;flex-direction:column;justify-content:space-between"><b class="en" style="font-size:38px;line-height:1">'+s.code+'</b><span><b style="display:block;font-size:14px">'+s.name+'</b><span class="en" style="font-size:11px;letter-spacing:.1em">SINGLES NOW ON SALE</span></span></span><span class="face back" style="padding:16px;display:flex;flex-direction:column;justify-content:space-between"><b class="en" style="font-size:38px;line-height:1;color:var(--accent)">'+s.code+'</b><span style="color:#fff"><b style="display:block;font-size:14px">'+s.name+'</b><span class="en" style="font-size:11px;letter-spacing:.1em;color:var(--accent)">BUYING NOW · 買取実施中</span></span></span></span></span></a>';}).join("");
+    U.$("#wall").innerHTML=D.products.slice(0,8).map(U.card).join("");
+    U.$("#wallEyebrow").textContent=sell?"Buying now":"New arrivals";
+    U.$("#wallTitle").textContent=sell?"いま買い取っているカード":"今週の入荷";
+    U.$("#wallSub").textContent=sell?"裏面＝買取価格。黄色の＋で買取リストに追加できます。":"表面＝販売価格。右上のスイッチを「売る」にすると一斉に裏返ります。";
+    var fa=U.$("#flipAll"); fa.textContent=sell?"表に戻して販売価格を見る":"カードを裏返して買取価格を見る"; fa.setAttribute("data-mode",sell?"buy":"sell");
+    var news=[["入荷","MEGAシリーズ シングルカードの販売を開始しました"],["買取","買取強化リストを更新しました"],["お知らせ","年末年始の発送スケジュールについて"],["買取","PSA鑑定品の買取を強化しています"]];
+    U.$("#news").innerHTML=news.map(function(n){var b=n[0]==="買取";return '<li style="display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)"><span class="en" style="font-size:13px">[日付]</span><span style="font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;background:'+(b?"var(--accent)":"var(--ink)")+';color:'+(b?"var(--ink)":"#fff")+'">'+n[0]+'</span><span>'+n[1]+'</span></li>';}).join("");
+    U.$("#shops").innerHTML=D.shops.map(function(s){return '<a href="shops.html#'+s.id+'" style="display:block;padding:12px 0;border-top:1px solid rgba(255,255,255,.18)"><b>'+s.name+'</b><br><span style="font-size:13px;opacity:.8">'+s.hours+'（'+s.off+'）</span></a>';}).join("");
+    U.reveal();
+  }
+  function start(){render();var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;if(!reduce)timer=setInterval(function(){tick++;document.querySelectorAll(".tile-flip").forEach(function(el,i){el.classList.toggle("turned",(tick+i)%2===1);});},3200);}
+  document.addEventListener("tcg:ready",start);
+  document.addEventListener("tcg:mode",function(){if(window.TCGUI)render();});
+  document.addEventListener("tcg:lang",function(){if(window.TCGUI&&document.readyState!=="loading")render();});
+})();
+</script>
+</body>
+</html>

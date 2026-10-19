@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>商品詳細｜TCG GATE JAPAN</title>
+<meta name="description" content="ポケモンカードの商品詳細。状態・型番・収録パック・在庫数をご確認いただけます。">
+<meta property="og:title" content="商品詳細｜TCG GATE JAPAN">
+<meta property="og:description" content="ポケモンカードの商品詳細。状態・型番・収録パック・在庫数をご確認いただけます。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1B2140">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='5' width='15' height='21' rx='3' fill='%23fff' stroke='%230E0E10' stroke-width='2' transform='rotate(-10 11 15)'/%3E%3Crect x='13' y='6' width='15' height='21' rx='3' fill='%230E0E10' transform='rotate(9 20 16)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="buy" data-theme="normal">
+
+<main id="main">
+<div class="wrap">
+<nav class="crumb" aria-label="パンくず" id="crumb"></nav>
+<div class="pd" id="pd"></div>
+</div>
+<section class="sec mist">
+<div class="wrap">
+<div class="sec-hd"><div><p class="eyebrow">You may also like</p><h2 class="display d-m" data-en="Related cards">関連する商品</h2></div></div>
+<div class="grid" id="rel"></div>
+</div>
+</section>
+</main>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+
+(function(){
+  var qty=1;
+  function render(){var U=window.TCGUI,D=window.TCG,en=U.lang()==="en";
+    var p=U.byId[U.param("id")]||U.byId.p9, cat=D.cats.filter(function(c){return c.id===p.cat;})[0], sold=p.stock<=0;
+    var name=en?p.en:p.name; document.title=name+"｜TCG GATE JAPAN";
+    U.$("#crumb").innerHTML='<a href="index.html">'+(en?"Home":"トップ")+'</a><span>／</span><a href="buy.html">'+(en?"Buy":"買いたい")+'</a><span>／</span><a href="buy.html?cat='+p.cat+'">'+(en?cat.en:cat.name)+'</a><span>／</span><span>'+U.esc(name)+'</span>';
+    var psa=p.cond==="PSA10";
+    var specs=psa?[["鑑定機関","Grader","PSA（Professional Sports Authenticator）"],["グレード","Grade","PSA 10（GEM MT）"],["カード型番","Number",p.num],["レアリティ","Rarity",p.rarity],["収録パック","Set",p.set]]
+      :[["状態","Condition",U.condLabel(p)],["カード型番","Number",p.num],["レアリティ","Rarity",p.rarity],["収録パック","Set",p.set],["在庫店舗","Stocked at",en?"Akihabara (shared with online)":"秋葉原本店（通販と在庫共有）"]];
+    var notes=psa?(en?["Product images are illustrations; the grade and card match the title.","Sold at the grade set by the grader. We cannot accept claims or returns for scratches or particles on or inside the slab.","For items over ¥200,000, visible slab damage found at inspection may be marked on actual photos.","When 2+ are in stock, you cannot choose a certification number."]
+      :["商品画像は実物写真ではなくイメージ写真となりますが、グレードやカードは商品名の通りとなります。","鑑定機関の定めたグレードを元に販売しています。ケース外部・内部に確認できる傷や異物などに関するクレーム・返品交換はお受けできません。","20万円を超える高額商品に限り、検品時にケースの外部・内部に目立つ傷を発見したものは、写真に赤丸等でマークして掲載している場合があります（実物写真）。","在庫数が2枚以上の場合でも、識別番号などをお選びすることはできません。"])
+      :(en?["Condition is ranked S / A / B by our staff.","Shipped in a sleeve and top-loader.","Images are illustrations until product photos are added."]:["状態はスタッフがS・A・Bの3段階で判定しています。詳しくはよくある質問をご覧ください。","スリーブとトップローダーに入れて発送します。","商品画像は撮影後に実物写真へ差し替えます。"]);
+    var stockCls=sold?"out":p.stock<=2?"low":"";
+    var stockTxt=sold?(en?"Sold out":"売り切れ"):(en?"In stock: ":"在庫 ")+p.stock+(p.stock<=2?(en?" — almost gone":"　残りわずか"):"");
+    qty=Math.min(qty,Math.max(1,p.stock));
+    U.$("#pd").innerHTML='<div><div class="stage"><div class="tilt" id="tilt" style="position:relative">'+U.art(p)+'<span class="glare"></span></div><p class="muted" style="font-size:12px;margin:0">'+(en?"Move your cursor to tilt the card.":"カーソルでカードを傾けて確認できます")+'</p></div></div>'+
+      '<div><p class="eyebrow">'+U.esc(p.set+" / "+p.num+" / "+p.rarity)+'</p><h1 class="pd-title">'+(psa?(en?"[PSA 10] ":"〔PSA10鑑定済〕"):"")+U.esc(name)+'</h1><p class="muted" style="margin:0">'+U.esc(U.condLabel(p))+'</p>'+
+      '<div class="price-row"><span class="p">'+U.yen(p.price)+'</span><span style="font-size:13px">'+(en?"incl. tax":"税込")+'</span>'+(p.old?'<span class="num muted" style="text-decoration:line-through">'+U.yen(p.old)+'</span>':"")+'<span class="stock-pill '+stockCls+'">'+stockTxt+'</span></div>'+
+      '<div class="buy-row">'+(sold?"":'<div class="qty"><button type="button" id="qm" aria-label="減らす">−</button><input id="qv" aria-label="数量" value="'+qty+'" readonly><button type="button" id="qp" aria-label="増やす">+</button></div>')+
+      '<button type="button" class="btn" id="addbtn"'+(sold?" disabled":"")+'>'+(sold?(en?"Sold out":"売り切れ"):(en?"Add to cart":"カートに入れる"))+'</button></div>'+
+      '<div class="buy-row"><button type="button" class="btn ghost" id="fav">'+(en?"Add to wishlist":"お気に入りに追加")+'</button><a class="btn ghost" href="contact.html?type=item&id='+p.id+'">'+(en?"Ask about this item":"この商品について問い合わせる")+'</a></div>'+
+      '<dl class="spec">'+specs.map(function(s){return "<dt>"+(en?s[1]:s[0])+"</dt><dd>"+U.esc(s[2])+"</dd>";}).join("")+'</dl>'+
+      '<div class="notes"><h2>'+(psa?(en?"About graded card images":"鑑定済カードの商品画像について"):(en?"Notes":"ご購入前に"))+'</h2><ul>'+notes.map(function(n){return "<li>"+n+"</li>";}).join("")+'</ul>'+(psa?'<p style="margin:10px 0 0"><a class="link" href="faq.html#grade">'+(en?"How we describe graded cards":"鑑定済カードの状態について")+'</a></p>':"")+'</div></div>';
+    U.tilt(U.$("#tilt"));
+    var ab=U.$("#addbtn"); if(ab&&!sold) ab.onclick=function(){U.addToCart(p.id,qty);};
+    if(!sold){U.$("#qm").onclick=function(){qty=Math.max(1,qty-1);U.$("#qv").value=qty;};U.$("#qp").onclick=function(){qty=Math.min(p.stock,qty+1);U.$("#qv").value=qty;};}
+    var favs=U.store.get("tcg-fav",[]); var fb=U.$("#fav"); var setFav=function(){var on=favs.indexOf(p.id)>=0;fb.classList.toggle("on",on);fb.textContent=on?(en?"In wishlist":"お気に入り済み"):(en?"Add to wishlist":"お気に入りに追加");}; setFav();
+    fb.onclick=function(){var i=favs.indexOf(p.id);if(i>=0)favs.splice(i,1);else favs.push(p.id);U.store.set("tcg-fav",favs);setFav();};
+    var rel=D.products.filter(function(x){return x.id!==p.id&&(x.cat===p.cat||x.set===p.set);}); if(rel.length<4) rel=rel.concat(D.products.filter(function(x){return x.id!==p.id&&rel.indexOf(x)<0;})).slice(0,4);
+    U.$("#rel").innerHTML=rel.slice(0,4).map(U.card).join("");
+  }
+  document.addEventListener("tcg:ready",render);
+  document.addEventListener("tcg:lang",function(){if(window.TCGUI&&document.readyState!=="loading")render();});
+})();
+
+</script>
+</body>
+</html>

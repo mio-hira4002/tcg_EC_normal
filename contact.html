@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>お問い合わせ・お申込み｜TCG GATE JAPAN</title>
+<meta name="description" content="商品のお問い合わせ、宅配買取キットのお申込み、LINE査定、出張買取のご依頼。">
+<meta property="og:title" content="お問い合わせ・お申込み｜TCG GATE JAPAN">
+<meta property="og:description" content="商品のお問い合わせ、宅配買取キットのお申込み、LINE査定、出張買取のご依頼。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1B2140">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='5' width='15' height='21' rx='3' fill='%23fff' stroke='%230E0E10' stroke-width='2' transform='rotate(-10 11 15)'/%3E%3Crect x='13' y='6' width='15' height='21' rx='3' fill='%230E0E10' transform='rotate(9 20 16)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="" data-theme="normal">
+
+<main id="main"><div class="wrap"><nav class="crumb" aria-label="パンくず"><a href="index.html" data-en="Home">トップ</a><span>／</span><span data-en="Contact">お問い合わせ</span></nav>
+<header class="page-hd" style="border-bottom:0"><p class="eyebrow">Contact</p><h1 class="display d-l"><span class="rise"><span id="ttl">お問い合わせ</span></span></h1><p class="lead" id="lead" style="margin:18px 0 0"></p></header>
+<div id="line-box" hidden style="margin-bottom:40px"><div class="line-band"><div><h2 class="display d-s" style="margin:0 0 8px">LINE公式アカウント</h2><p style="margin:0;opacity:.8">友だち追加後、カードの写真（表・裏）を送ってください。</p></div><a class="btn line" href="#" aria-disabled="true">LINEを開く [URL要確認]</a></div><p class="muted" style="margin:16px 0 0">LINEをお使いでない方は、下のフォームからも査定をご依頼いただけます。</p></div>
+<form class="form" id="form" novalidate style="padding-bottom:100px">
+<div class="field"><span class="lbl">ご用件<span class="req">必須</span></span><div class="radios" id="types"></div></div>
+<div class="field" id="item-field" hidden><label for="item">対象商品</label><input class="input" id="item" readonly></div>
+<div class="field" id="sell-field" hidden><label for="sell">売却リスト</label><textarea class="textarea" id="sell" readonly style="min-height:90px"></textarea></div>
+<div class="field"><label for="name">お名前<span class="req">必須</span></label><input class="input" id="name" autocomplete="name" required></div>
+<div class="field"><label for="email">メールアドレス<span class="req">必須</span></label><input class="input" id="email" type="email" autocomplete="email" required></div>
+<div class="field"><label for="tel">電話番号</label><input class="input" id="tel" type="tel" autocomplete="tel"></div>
+<div class="field" id="addr-field" hidden><label for="addr">ご住所（キット送付先・出張先）<span class="req">必須</span></label><input class="input" id="addr" autocomplete="street-address"></div>
+<div class="field"><label for="msg">内容</label><textarea class="textarea" id="msg" placeholder="カード名・枚数・状態など"></textarea></div>
+<p class="muted" style="font-size:13px;margin:0">送信により<a class="link" href="legal.html#privacy">プライバシーポリシー</a>に同意したものとみなします。</p>
+<p id="err" class="accent" role="alert" style="margin:0;font-size:14px;font-weight:700"></p>
+<div><button class="btn" type="submit">送信する<svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+</form>
+<div class="thanks" id="thanks" hidden style="padding-bottom:120px"><p class="display d-m" style="margin-bottom:14px">送信しました。</p><p class="lead">内容を確認のうえ、担当者よりご連絡します。（デモのため実際には送信されません）</p><a class="btn" href="index.html" style="margin-top:22px">トップへ戻る</a></div>
+</div></main>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+
+document.addEventListener("tcg:ready",function(){var U=window.TCGUI,D=window.TCG;
+var types=[["general","一般のお問い合わせ","ご質問・ご要望はこちらから。通常2営業日以内にご返信します。[要確認]"],["item","商品について","商品の状態・在庫などについてお気軽にお問い合わせください。"],["kit","宅配買取キット申込","無料の宅配キットをお送りします。最短翌日発送。"],["line","LINE査定","写真を送るだけで、最短即日に査定額をお返事します。"],["visit","出張買取の依頼","大量のカードは、査定員がご自宅まで伺います。"]];
+var cur=U.param("type"); if(!types.some(function(t){return t[0]===cur;})) cur="general";
+U.$("#types").innerHTML=types.map(function(t){return '<input type="radio" name="type" id="t-'+t[0]+'" value="'+t[0]+'"'+(t[0]===cur?" checked":"")+'><label for="t-'+t[0]+'">'+t[1]+'</label>';}).join("");
+var p=U.byId[U.param("id")]; if(p){U.$("#item").value=p.name+"（"+p.rarity+" "+p.num+"）";}
+var sl=(U.param("sell")||"").split(",").filter(Boolean).map(function(id){return U.buyRows().filter(function(b){return b.id===id;})[0];}).filter(Boolean);
+if(sl.length){U.$("#sell").value=sl.map(function(b){return b.name+" "+b.num+"　"+U.yen(b.price);}).join("\n");}
+function sync(){var t=U.$("input[name=type]:checked").value,d=types.filter(function(x){return x[0]===t;})[0];
+ U.$("#ttl").textContent=d[1]; document.title=d[1]+"｜TCG GATE JAPAN"; U.$("#lead").textContent=d[2];
+ U.$("#item-field").hidden=!(t==="item"&&p); U.$("#sell-field").hidden=!(t==="kit"&&sl.length); U.$("#addr-field").hidden=!(t==="kit"||t==="visit"); U.$("#line-box").hidden=t!=="line";}
+document.addEventListener("change",function(e){if(e.target.name==="type")sync();}); sync();
+U.$("#form").addEventListener("submit",function(e){e.preventDefault();var t=U.$("input[name=type]:checked").value;
+ var miss=[];if(!U.$("#name").value.trim())miss.push("お名前");if(!/^\S+@\S+\.\S+$/.test(U.$("#email").value))miss.push("メールアドレス");if((t==="kit"||t==="visit")&&!U.$("#addr").value.trim())miss.push("ご住所");
+ if(miss.length){U.$("#err").textContent=miss.join("・")+"を入力してください。";return;}
+ U.$("#form").hidden=true;U.$("#thanks").hidden=false;if(t==="kit")U.store.set("tcg-sell",[]);window.scrollTo(0,0);});
+});
+
+</script>
+</body>
+</html>

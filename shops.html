@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>店舗一覧｜TCG GATE JAPAN</title>
+<meta name="description" content="秋葉原本店・福岡西新店・久留米店の住所・営業時間・アクセス。">
+<meta property="og:title" content="店舗一覧｜TCG GATE JAPAN">
+<meta property="og:description" content="秋葉原本店・福岡西新店・久留米店の住所・営業時間・アクセス。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1B2140">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='5' width='15' height='21' rx='3' fill='%23fff' stroke='%230E0E10' stroke-width='2' transform='rotate(-10 11 15)'/%3E%3Crect x='13' y='6' width='15' height='21' rx='3' fill='%230E0E10' transform='rotate(9 20 16)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="shops" data-theme="normal">
+
+<main id="main"><div class="wrap"><nav class="crumb" aria-label="パンくず"><a href="index.html" data-en="Home">トップ</a><span>／</span><span data-en="Shops">店舗一覧</span></nav>
+<header class="page-hd" style="border-bottom:0"><p class="eyebrow">Shops</p><h1 class="display d-l"><span class="rise"><span data-en="Three shops,">3つの店舗、</span></span><span class="rise d2"><span class="outline" data-en="one stock.">ひとつの在庫。</span></span></h1>
+<p class="lead" style="margin:22px 0 0" data-en="Online stock is shared with our shops. Buy-back is available at every location.">通販の在庫は店舗と共有しています。どの店舗でも買取を受け付けています。</p></header>
+<div id="shops"></div></div></main>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+
+document.addEventListener("tcg:ready",function(){var U=window.TCGUI,D=window.TCG;
+U.$("#shops").innerHTML=D.shops.map(function(s){var q=encodeURIComponent(s.addr);var tel=s.tel.replace(/-/g,"");
+return '<article class="shop" id="'+s.id+'" data-reveal><div><p class="eyebrow">'+s.area+' / JAPAN</p><div class="big">'+s.k+'</div><h2 style="font-size:26px;margin:18px 0 10px">'+s.name+'</h2><p style="margin:0">'+(s.main?'<span class="badge red">本店</span>':'<span class="badge">支店</span>')+'</p>'+(s.note?'<p class="muted" style="margin:16px 0 0;max-width:22em">'+s.note+'</p>':'')+'</div>'+
+'<div><dl><dt>住所</dt><dd>'+s.addr+'</dd><dt>電話</dt><dd><a class="link" href="tel:'+tel+'">'+s.tel+'</a></dd><dt>営業</dt><dd>'+s.hours+'</dd><dt>定休</dt><dd>'+s.off+'</dd><dt>アクセス</dt><dd>'+s.access+'</dd></dl>'+
+'<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+q+'">地図を見る'+U.icons.arr+'</a><a class="btn ghost" href="tel:'+tel+'">電話する</a><a class="btn ghost" href="sell.html#methods">店頭買取について</a></div></div></article>';}).join("");
+U.reveal();});
+
+</script>
+</body>
+</html>
